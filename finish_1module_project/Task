@@ -1,0 +1,30 @@
+Try to identify (potentially reusable) building blocks in the starting project and split the app into custom components accordingly
+Try not to be too granular when splitting the app
+
+You'll need to listen to three main kinds of events:
+    Form submission
+    Reset button being clicked
+    User input changing (in the various <input /> fields)
+
+Consider using a generic / shared change handler function for the user input events (you don't have to, though)
+
+Manage input state as a single object or as multiple state slices - it's up to you!
+
+Don't forget to "lift state up"
+
+Feel free to change the provided calculateHandler function - maybe the calculation logic can be moved right into the component function?
+
+Related to the previous point: See if you can derive the calculation results from some existing state (instead of managing them as new state)
+
+Consider splitting the provided CSS code into multiple component-scoped CSS files (using "CSS Modules")
+
+Format the currency values output in the table via the below code:
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+// use like this:
+formatter.format(yourValue);
