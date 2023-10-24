@@ -2,11 +2,21 @@ import Header from "./components/Header/Header";
 import NewInvestmentForm from "./components/NewInvestment/NewInvestmentForm";
 import Table from "./components/Table/Table";
 import {useState} from "react";
+import ErrorModal from "./components/UI/ErrorModal";
 
 function App() {
     const [userInput, setUserInput] = useState(null);
+    const [error, setError] = useState(null);
+
     const calculateHandler = (userInput) => {
-        setUserInput(userInput);
+        if (userInput['current-savings'] instanceof Number) {
+            setUserInput(userInput);
+        } else {
+            setError({
+                title: "Incorrect input",
+                message: "Enter number"
+            });
+        }
     };
 
     const yearlyData = [];
@@ -29,12 +39,18 @@ function App() {
         }
     }
 
+    const errorHandler = () => {
+        setError(null);
+    };
+
     return (
         <div>
+            {error && <ErrorModal onClose={errorHandler} title={error.title} message={error.message}/>}
+
             <Header/>
 
             <NewInvestmentForm onCalculate={calculateHandler}/>
-            {!userInput && <p>No investment calculated</p>}
+            {!userInput && <p style={{textAlign: 'center'}}>No investment calculated</p>}
             {userInput && <Table data={yearlyData} initialInvestement={userInput['current-savings']}/>}
             <Table/>
         </div>

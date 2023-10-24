@@ -1,4 +1,4 @@
-import module from '../../index.module.css';
+import module from './Table.module.css';
 
 const formatter = new Intl.NumberFormat(
     'en-US', {

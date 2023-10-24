@@ -1,5 +1,5 @@
 import logo from "../../assets/investment-calculator-logo.png";
-import module from "../../index.module.css"
+import module from "./Header.module.css";
 
 const Header = () => {
     return (
