@@ -7,7 +7,8 @@ import SelectedProject from "./components/SelectedProject.jsx";
 function App() {
     const [projectsState, setProjectsState] = useState({
         selectedProjectID: undefined,
-        projects: []
+        projects: [],
+        tasks: [],
     });
 
     function handleStartAddProject() {
@@ -33,13 +34,22 @@ function App() {
         });
     }
 
-    function handleDeleteTask() {
+    function handleDeleteTask(id) {
+        console.log(projectsState.tasks);
+        console.log(id);
+        setProjectsState(prevState => {
+            return {
+                ...prevState,
+                tasks: prevState.tasks.filter((task) => task.id !== id)
+            };
+        });
     }
 
     const selectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectID);
 
     let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject}
-                                   onDeleteTask={handleDeleteTask} onAddTask={handleAddTask}/>;
+                                   onDeleteTask={handleDeleteTask} onAddTask={handleAddTask}
+                                   tasks={projectsState.tasks}/>;
 
     if (projectsState.selectedProjectID === null) {
         content = <NewProject onCancel={handleCancel} onAddProject={handleAddProject}/>;
@@ -95,7 +105,8 @@ function App() {
         <main className="h-screen my-8 flex gap-8">
             <ProjectSidebar onStartAddProject={handleStartAddProject}
                             projects={projectsState.projects}
-                            onSelectProject={handleSelectProject}/>
+                            onSelectProject={handleSelectProject}
+                            selectedProjectId={projectsState.selectedProjectID}/>
             {content}
         </main>
     );
