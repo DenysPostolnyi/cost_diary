@@ -12,6 +12,8 @@ export default function Login() {
         const enteredPassword = password.current.value;
         console.log(enteredEmail);
         console.log(enteredPassword);
+
+        const emailIsInvalid = !enteredEmail.includes('@');
     }
 
 
