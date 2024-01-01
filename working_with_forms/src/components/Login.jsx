@@ -1,31 +1,19 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 
 export default function Login() {
-    // const [enteredEmail, setEnteredEmail] = useState('');
-    // const [enteredPassword, setEnteredPassword] = useState('');
-    const [enteredValues, setEnteredValues] = useState({
-        email: '',
-        password: ''
-    });
+    const email = useRef();
+    const password = useRef();
+
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const enteredEmail = email.current.value;
+        const enteredPassword = password.current.value;
+        console.log(enteredEmail);
+        console.log(enteredPassword);
     }
 
-    // function handleEmailChange(event) {
-    //     setEnteredEmail(event.target.value)
-    // }
-    //
-    // function handlePasswordChange(event) {
-    //     setEnteredEmail(event.target.value)
-    // }
-
-    function handleInputChange(identifier, event) {
-        setEnteredValues(prevState => ({
-            ...prevState,
-            [identifier]: event.target.value
-        }));
-    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -34,14 +22,12 @@ export default function Login() {
             <div className="control-row">
                 <div className="control no-margin">
                     <label htmlFor="email">Email</label>
-                    <input id="email" type="email" name="email" onChange={(event) => handleInputChange('email', event)}
-                           value={enteredValues.email}/>
+                    <input id="email" type="email" name="email" ref={email}/>
                 </div>
 
                 <div className="control no-margin">
                     <label htmlFor="password">Password</label>
-                    <input id="password" type="password" name="password" onChange={(event) => handleInputChange('password', event)}
-                           value={enteredValues.password}/>
+                    <input id="password" type="password" name="password" ref={password}/>
                 </div>
             </div>
 
